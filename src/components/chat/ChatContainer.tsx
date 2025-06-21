@@ -5,6 +5,7 @@ import ChatMessages from './ChatMessages'
 import ChatInput from './ChatInput'
 import { useChat } from '@/hooks/useChat'
 
+// Sem interface vazia - usar diretamente
 export default function ChatContainer() {
   const { messages, isTyping, sendMessage } = useChat()
 

@@ -47,12 +47,14 @@
     color: var(--gemini-text);
   }
 
-  /* Scrollbar global */
+  /* Scrollbar customizada - Compatibilidade cross-browser */
   * {
+    /* Firefox - com fallback */
     scrollbar-width: thin;
     scrollbar-color: var(--gemini-border) transparent;
   }
 
+  /* Webkit browsers (Chrome, Safari, Edge) */
   *::-webkit-scrollbar {
     width: 6px;
     height: 6px;
@@ -69,6 +71,13 @@
 
   *::-webkit-scrollbar-thumb:hover {
     background: var(--gemini-border-light);
+  }
+
+  /* Fallback para navegadores que não suportam scrollbar customizada */
+  @supports not (scrollbar-width: thin) {
+    * {
+      overflow: auto;
+    }
   }
 }
 
@@ -125,6 +134,7 @@ nextjs-portal,
     scroll-behavior: smooth;
   }
 
+  /* Scrollbar específica para mensagens - Webkit */
   .chat-messages::-webkit-scrollbar {
     width: 4px;
   }
@@ -136,6 +146,18 @@ nextjs-portal,
   .chat-messages::-webkit-scrollbar-thumb {
     background: var(--gemini-border);
     border-radius: 2px;
+  }
+
+  .chat-messages::-webkit-scrollbar-thumb:hover {
+    background: var(--gemini-border-light);
+  }
+
+  /* Firefox - scrollbar para mensagens */
+  @-moz-document url-prefix() {
+    .chat-messages {
+      scrollbar-width: thin;
+      scrollbar-color: var(--gemini-border) transparent;
+    }
   }
   
   /* Container de mensagem - Estilo Gemini */
@@ -252,6 +274,28 @@ nextjs-portal,
     min-height: 24px;
     max-height: 120px;
     padding-right: 48px;
+  }
+
+  /* Scrollbar para textarea - Webkit */
+  .chat-input::-webkit-scrollbar {
+    width: 3px;
+  }
+
+  .chat-input::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .chat-input::-webkit-scrollbar-thumb {
+    background: var(--gemini-border);
+    border-radius: 2px;
+  }
+
+  /* Firefox - scrollbar para input */
+  @-moz-document url-prefix() {
+    .chat-input {
+      scrollbar-width: thin;
+      scrollbar-color: var(--gemini-border) transparent;
+    }
   }
   
   .chat-input::placeholder {
@@ -480,5 +524,13 @@ nextjs-portal,
   
   .welcome-suggestions {
     grid-template-columns: 1fr;
+  }
+}
+
+/* Fallback para navegadores muito antigos */
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+  /* Internet Explorer fallback */
+  .chat-messages {
+    overflow-y: scroll;
   }
 }
