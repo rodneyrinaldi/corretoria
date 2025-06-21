@@ -57,7 +57,7 @@ export default function ChatInput({ onSendMessage }: ChatInputProps) {
           value={inputValue}
           onChange={handleInputChange}
           onKeyPress={handleKeyPress}
-          placeholder="Digite uma mensagem para o Gemini"
+          placeholder="Digite uma mensagem para o CorretorIA"
           className="chat-input"
           maxLength={2000}
           rows={1}
